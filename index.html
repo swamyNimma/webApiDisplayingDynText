@@ -1,0 +1,63 @@
+<!doctype html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<div class="container">
+    <br>
+    <div class="jumbotron">
+        <h1 class="display-4">Send message</h1>
+        <br>
+        <input id='name' class="form-control" placeholder="name">
+        <br>
+        <textarea id='message' class="form-control" placeholder="Message"></textarea>
+        <br>
+        <button id="send" class="btn btn-success">Send</button>
+    </div>
+
+    <div id="message">
+        <br>
+
+    </div>
+
+
+</div>
+
+<script>
+
+//<h4 id="displayName"></h4>
+//<p id="displayMessage"></p>
+
+$(()=>{
+    $('#send').click(()=>{
+        
+        var message={name: $("#name").val(),message: $("#message").val()}
+        console.log(message);
+        postMessage(message)
+        //addMessage({name:'Send',message:'OnClick of send button'})
+    })
+    getMessageAjaxCall();
+})
+    
+    function addMessage(message){
+        console.log("in add message fun:"+message.name);
+        //$("#displayName").val(message.name)
+$('#message').append(`<h4>test</h4> <p> hello</p>`);
+    }
+
+    function getMessageAjaxCall(){
+        //ajax call getting data 
+$.get('http://localhost:3000/message',(data)=>{
+    console.log("inside ajax call"+data);
+    data.forEach(addMessage);
+})
+    }
+
+    function postMessage(message){
+        console.log("in post:"+message.name);
+        //ajax call getting data 
+$.post('http://localhost:3000/message',message);
+    }
+</script>
